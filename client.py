@@ -13,7 +13,10 @@ def client_send_data(host,port,data):
     socket.connect((hote, port))
     print("Connection on {}".format(port))
 
+
     socket.send(data.encode())
 
     print("Close")
     socket.close()
+
+

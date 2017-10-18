@@ -5,13 +5,16 @@ import threading
 import urllib.request
 import socket
 from ultrasonic_function import *
+from compas_function import *
 from client import *
 
-Sound.speak('I love you laura !').wait()
+
 mA = LargeMotor('outA')
 mB = LargeMotor('outB')
 ultrasonic = UltrasonicSensor()
 assert ultrasonic.connected
+gyroscope = GyroSensor()
+assert gyroscope.connected
 
 
 def findeboucle():
@@ -36,7 +39,10 @@ while encore:
 
         if distance != distance_last:
 
-            data.append(distance)
+            angle = mesure_position(gyroscope,'angle')
+
+            value = "Distance between robot and obstacle is:"+ str(distance) + " with an angle of :"+ str(+angle)
+            data.append(value)
             distance_last = distance
 
 
@@ -53,9 +59,9 @@ mA.stop(stop_action="brake")
 mB.stop(stop_action="brake")
 
 for i in range(len(data)):
-    data_send = "Swarm1" + data[i]
-    client_send_data('localhost', 1111, data_send)
-
+    value="Swarm1 ->"+ str(data[i])
+    print(value)
+    client_send_data('localhost', 1111,value)
 
 
 

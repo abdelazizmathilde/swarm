@@ -1,19 +1,15 @@
-#!/usr/bin/env python
-# coding: utf-8
+
+def mesure_distance(sensor,distance):
+
+     if distance == 'distance':
+         sensor.mode ='US-DIST-CM'
+         units = sensor.units
+
+     mesure = sensor.value() / 10  # convert mm to cm
+
+     return mesure
 
 
 
-def client_send_data(host,port,data):
 
-    import socket
-    hote = host
-    ports =port
 
-    socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket.connect((hote, port))
-    print("Connection on {}".format(port))
-
-    socket.send(data.encode())
-
-    print("Close")
-    socket.close()
